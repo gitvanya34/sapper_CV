@@ -48,22 +48,36 @@ class ComputerVision(object):
     # closed=edgedImage(copy.deepcopy(image))
 
 
-    def searchNumber(self,imageObj, imageSource):
-        img_rgb = cv.imread(imageSource)
+    def searchNumber(self,template, img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
-        template = cv.imread(imageObj, 0)
         # template = cv.cvtColor(template, cv.COLOR_BGR2GRAY)
         w, h = template.shape[::-1]
         res = cv.matchTemplate(img_gray, template, cv.TM_CCORR_NORMED)
-        threshold = 0.99
+        threshold = 1
         loc = np.where(res >= threshold)
         for pt in zip(*loc[::-1]):
             cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
 
         self.display(img_rgb)
-        cv.waitKey(0)
+        return img_rgb
+
         # if image is None:
         #     sys.exit("Could not read the image.")
+
+    def searchNumbers(self, img_rgb):
+        img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
+        templates = [cv.imread('top/cell.jpg',0),
+                     cv.imread('top/1.jpg',0),
+                     cv.imread('top/2.jpg',0),
+                     cv.imread('top/3.jpg',0)]
+        for idx, temp in enumerate(templates):
+            w, h = temp.shape[::-1]
+            res = cv.matchTemplate(img_gray, temp, cv.TM_CCORR_NORMED)
+            threshold = 0.99
+            loc = np.where(res >= threshold)
+            for pt in zip(*loc[::-1]):
+                cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        return  img_rgb
 
 
     def checkMethodCV(self,imageObj, imageSource):
