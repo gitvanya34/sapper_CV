@@ -17,6 +17,7 @@ class ComputerVision(object):
         cv.imshow(frameName, copyImg)
         cv.waitKey(0)
 
+
     # def yelowRectangle(img,x1,y1,x2,y2):
     #
     #     img=cv.rectangle(img, (x1, y1), (x2, y2), (0, 255, 255), 10)
