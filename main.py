@@ -4,18 +4,21 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import UserActions
 import cv2 as cv
-
-
 from ComputerVision import ComputerVision
+from Sapper import Sapper
+
 imageSource = cv.imread('source/scrin1.jpg')
 imageStart = cv.imread('source/test1.jpg')
 
-obj=ComputerVision()
+sapper = Sapper()
+# sapper.print()
+sapper.tableSet(1, 1)
+sapper.print()
 
+obj = ComputerVision()
 obj.searchNumber(cv.imread('source/StartTable.jpg', 0), imageStart)
 
-imageSource=obj.searchNumbers(imageSource)
+imageSource = obj.searchNumbers(imageSource)
 obj.display(imageSource)
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
