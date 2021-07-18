@@ -10,9 +10,13 @@ from Sapper import Sapper
 imageSource = cv.imread('source/scrin1.jpg')
 imageStart = cv.imread('source/test1.jpg')
 
+
+###TODO: 1)Засунауть класс Sapper в CV,
+#         2)найти способ перенести контуры в массив с определением типа контура
+#         3) эмулировтаь работу пользоватея
 sapper = Sapper()
 # sapper.print()
-sapper.tableSet(1, 1)
+sapper.tableSet(1, 1, 1,2,3,4,"[eq")
 sapper.print()
 
 obj = ComputerVision()

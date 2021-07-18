@@ -17,8 +17,8 @@ class Sapper:
     def m(self):
         return self.__m
 
-    def tableSet(self, x, y):
-        self.table[x][y] = self.table[x][y].SapperCell(1, 2, 3, 4, "[eq")
+    def tableSet(self, x, y, x1, y1, x2, y2, val):
+        self.table[x][y] = self.table[x][y].SapperCell(1, 2, 4, 4, "[eq")
 
     def print(self):
         for i in range(len(self.table)):
