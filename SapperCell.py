@@ -1,3 +1,4 @@
+import math
 class SapperCell:
     __x1 = 0
     __y1 = 0
@@ -86,7 +87,18 @@ class SapperCell:
         #     return True  # пересекаются
         # else:
         #     return True  # пересекаются
-        print(a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2)
+        # print(a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2)
         return a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2
 
-
+    @staticmethod
+    def checkIntersectCellsDistanceBetweenPoints(a, b):
+        centerAX = (a.x1 + a.x2) / 2
+        centerAY = (a.y2 + a.y1) / 2
+        centerBX = (b.x1 + b.x2) / 2
+        centerBY = (b.y2 + b.y1) / 2
+        # distans= √(math.fabs(centerAX - centerBX))**2 + (math.fabs(centerAY - centerBY))**2
+        distans = math.hypot(math.fabs(centerAX - centerBX), math.fabs(centerAY - centerBY))
+        if distans > 30:
+            return False
+        else:
+            return True

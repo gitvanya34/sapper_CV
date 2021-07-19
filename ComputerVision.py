@@ -48,21 +48,27 @@ class ComputerVision(object):
     # grayImage(copy.deepcopy(image))
     # closed=edgedImage(copy.deepcopy(image))
 
-    def searchNumber(self, template, img_rgb):
+    def searchField(self, template, img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
         # template = cv.cvtColor(template, cv.COLOR_BGR2GRAY)
         w, h = template.shape[::-1]
         res = cv.matchTemplate(img_gray, template, cv.TM_CCORR_NORMED)
-        threshold = 1
+        threshold = 0.99999
         loc = np.where(res >= threshold)
+
+        listTable = []
         for pt in zip(*loc[::-1]):
             cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+            listTable.append(SapperCell(pt[0],  pt[1], pt[0] + w, pt[1] + h, 'table'))
 
         self.display(img_rgb)
-        return img_rgb
+        print(len(listTable))
+        return img_rgb, listTable
 
         # if image is None:
         #     sys.exit("Could not read the image.")
+
+
 
     def searchNumbers(self, img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
@@ -72,18 +78,26 @@ class ComputerVision(object):
                      cv.imread('top/3.jpg', 0)]
 
         listCell = []
-        listCell.append(SapperCell(0, 0, 0, 0, 0))
-
         for idx, temp in enumerate(templates):
             w, h = temp.shape[::-1]
             res = cv.matchTemplate(img_gray, temp, cv.TM_CCORR_NORMED)
             threshold = 0.99
             loc = np.where(res >= threshold)
             for pt in zip(*loc[::-1]):
-                cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+                # cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
                 # if SapperCell.checkIntersectCells(listCell[-1], listCell[-2]):
+                # for i in listCell:
+                #     if not SapperCell.checkIntersectCellsDistanceBetweenPoints(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx),i):
                 listCell.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx))
 
+        # for i, tempI in enumerate(listCell):
+        #     for j, tempJ in enumerate(listCell):
+        #         if not i == j:
+        #             if SapperCell.checkIntersectCells(listCell[i], listCell[j]):
+        #                 listCell.pop(j)
+
+        for item in listCell:
+            cv.rectangle(img_rgb, (item.x1,item.y1), (item.x2,item.y2), (0, 0, 255), 2)
 
         ###TODO: удалить из списка listCell все пересекающиеся контуры, оставить только один экземпляр
 

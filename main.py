@@ -20,7 +20,8 @@ sapper.tableSet(1, 1, 1,2,3,4,"[eq")
 sapper.print()
 
 obj = ComputerVision()
-obj.searchNumber(cv.imread('source/StartTable.jpg', 0), imageStart)
+obj.searchField(cv.imread('source/StartTable.jpg', 0), imageStart)
+
 
 imageSource, listCell = obj.searchNumbers(imageSource)
 print(len(listCell))
