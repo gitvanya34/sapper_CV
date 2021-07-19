@@ -22,7 +22,8 @@ sapper.print()
 obj = ComputerVision()
 obj.searchNumber(cv.imread('source/StartTable.jpg', 0), imageStart)
 
-imageSource = obj.searchNumbers(imageSource)
+imageSource, listCell = obj.searchNumbers(imageSource)
+print(len(listCell))
 obj.display(imageSource)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

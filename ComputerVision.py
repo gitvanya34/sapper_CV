@@ -2,6 +2,7 @@ import copy
 import numpy as np
 from matplotlib import pyplot as plt
 import cv2 as cv
+from SapperCell import SapperCell
 from Sapper import Sapper
 import UserActions
 import sys
@@ -9,7 +10,7 @@ import sys
 
 class ComputerVision(object):
 
-    def display(self,img, frameName="OpenCV Image"):
+    def display(self, img, frameName="OpenCV Image"):
         copyImg = copy.deepcopy(img)
         h, w = img.shape[0:2]
         neww = 1000
@@ -18,13 +19,12 @@ class ComputerVision(object):
         cv.imshow(frameName, copyImg)
         cv.waitKey(0)
 
-
     # def yelowRectangle(img,x1,y1,x2,y2):
     #
     #     img=cv.rectangle(img, (x1, y1), (x2, y2), (0, 255, 255), 10)
     #     self.display(img)
 
-    def grayImage(self,image):
+    def grayImage(self, image):
         image = cv.imread(image)
         gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         gray = cv.GaussianBlur(gray, (3, 3), 0)
@@ -32,7 +32,7 @@ class ComputerVision(object):
 
     #
     #
-    def edgedImage(self,image):
+    def edgedImage(self, image):
         image = cv.imread(image)
         img = cv.Canny(image, 10, 250)
         # закрытие объектов
@@ -48,8 +48,7 @@ class ComputerVision(object):
     # grayImage(copy.deepcopy(image))
     # closed=edgedImage(copy.deepcopy(image))
 
-
-    def searchNumber(self,template, img_rgb):
+    def searchNumber(self, template, img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
         # template = cv.cvtColor(template, cv.COLOR_BGR2GRAY)
         w, h = template.shape[::-1]
@@ -67,10 +66,14 @@ class ComputerVision(object):
 
     def searchNumbers(self, img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
-        templates = [cv.imread('top/cell.jpg',0),
-                     cv.imread('top/1.jpg',0),
-                     cv.imread('top/2.jpg',0),
-                     cv.imread('top/3.jpg',0)]
+        templates = [cv.imread('top/cell.jpg', 0),
+                     cv.imread('top/1.jpg', 0),
+                     cv.imread('top/2.jpg', 0),
+                     cv.imread('top/3.jpg', 0)]
+
+        listCell = []
+        listCell.append(SapperCell(0, 0, 0, 0, 0))
+
         for idx, temp in enumerate(templates):
             w, h = temp.shape[::-1]
             res = cv.matchTemplate(img_gray, temp, cv.TM_CCORR_NORMED)
@@ -78,10 +81,29 @@ class ComputerVision(object):
             loc = np.where(res >= threshold)
             for pt in zip(*loc[::-1]):
                 cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-        return  img_rgb
+                # if SapperCell.checkIntersectCells(listCell[-1], listCell[-2]):
+                listCell.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx))
 
 
-    def checkMethodCV(self,imageObj, imageSource):
+        ###TODO: удалить из списка listCell все пересекающиеся контуры, оставить только один экземпляр
+
+        # delIndex = []
+        # for idx in range(len(listCell) - 1):
+        #     if SapperCell.checkIntersectCells(listCell[idx], listCell[idx + 1]):
+        #         delIndex.append(idx)
+        # for idx, obj in enumerate(listCell):
+        #     for i in delIndex:
+        #         if i == idx:
+        #             del listCell[idx]
+
+        for i in listCell:
+            print(i.printCell())
+            # del listCell[idx]
+        # listCell = [item for item in listCell if not SapperCell.checkIntersectCells(listCell[idx], listCell[idx+1])]
+
+        return img_rgb, listCell
+
+    def checkMethodCV(self, imageObj, imageSource):
         img = cv.imread(imageSource, 0)
         img2 = img.copy()
         template = cv.imread(imageObj, 0)

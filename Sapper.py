@@ -1,5 +1,5 @@
 from SapperCell import SapperCell
-
+###TODO: Клтеки лежат внутри контура таблицы
 
 class Sapper:
     __n = 16

@@ -1,26 +1,50 @@
 class SapperCell:
-    __x = 0
-    __y = 0
+    __x1 = 0
+    __y1 = 0
+    __x2 = 0
+    __y2 = 0
     __value = ''
 
-    def __init__(self):
-        self.__value = ''
+    def __init__(self, x1=0, y1=0, x2=0, y2=0, val=0):
+        # self.__x = (x1 + x2) / 2
+        # self.__y = (y2 + y1) / 2
+        self.__x1 = x1
+        self.__y1 = y1
+        self.__x2 = x2
+        self.__y2 = y2
+        self.__value = val
 
     @property
-    def x(self):
-        return self.__x
+    def x1(self):
+        return self.__x1
 
-    @x.setter
-    def x(self, val):
-        self.__x = val
+    @x1.setter
+    def x1(self, val):
+        self.__x1 = val
 
     @property
-    def y(self):
-        return self.__y
+    def y1(self):
+        return self.__y1
 
-    @y.setter
-    def y(self, val):
-        self.__y = val
+    @y1.setter
+    def y1(self, val):
+        self.__y1 = val
+
+    @property
+    def x2(self):
+        return self.__x2
+
+    @x2.setter
+    def x2(self, val):
+        self.__x2 = val
+
+    @property
+    def y2(self):
+        return self.__y2
+
+    @y2.setter
+    def y2(self, val):
+        self.__y2 = val
 
     @property
     def value(self):
@@ -31,11 +55,38 @@ class SapperCell:
         self.__value = val
 
     def SapperCell(self, x1, y1, x2, y2, val):
-        self.__x = (x1 + x2) / 2
-        self.__y = (y2 + y1) / 2
+        # self.__x = (x1 + x2) / 2
+        # self.__y = (y2 + y1) / 2
+        self.__x1 = x1
+        self.__y1 = y1
+        self.__x2 = x2
+        self.__y2 = y2
         self.__value = val
         return self
 
     def printCell(self):
         # print(self.__x+","+self.__y+","+self.value)
-        return "[%d, %d, %s]" % (self.__x, self.__y, self.__value)
+        return "[%d, %d, %d, %d, %s]" % (self.__x1, self.__y1, self.__x2, self.__y2, self.__value)
+
+    @staticmethod
+    def checkIntersectCells(a, b):
+        # print( cellA.x2 >= cellB.x1 and cellA.x1 <= cellB.x2 and cellA.y1 <= cellB.y2 and cellA.y2 >= cellB.y1)
+        # return cellA.x2 >= cellB.x1 and cellA.x1 <= cellB.x2 and cellA.y1 <= cellB.y2 and cellA.y2 >= cellB.y1
+        # ax1, ay1, ax2, ay2 = cellA.x1, cellA.y1, cellA.x2, cellA.y2  # прямоугольник А
+        # bx1, by1, bx2, by2 = cellB.x1, cellB.y1, cellB.x2, cellB.y2  # прямоугольник B
+        #
+        # xA = [ax1, ax2]  # координаты x обеих точек прямоугольника А
+        # xB = [bx1, bx2]  # координаты x обеих точке прямоугольника В
+        # yA = [ay1, ay2]  # координаты x обеих точек прямоугольника А
+        # yB = [by1, by2]  # координаты x обеих точек прямоугольника В
+        # if max(xA) < min(xB) or max(yA) < min(yB) or min(yA) > max(yB):
+        #     return False  # не пересекаются
+        # elif max(xA) > min(xB) and min(xA) < min(xB):
+        #     dx = max(xA) - min(xB)
+        #     return True  # пересекаются
+        # else:
+        #     return True  # пересекаются
+        print(a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2)
+        return a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2
+
+
