@@ -22,10 +22,10 @@ sapper.tableSet(1, 1, 1,2,3,4,"[eq")
 sapper.print()
 
 obj = ComputerVision()
-obj.searchField(cv.imread('source/StartTable.jpg', 0), imageStart)
+obj.searchField(cv.imread('source/StartTable.jpg', 0), imageStart)#выполняется только один раз в начале что бы определить координаты рабочей области
 
 
-imageSource, listCell = obj.searchNumbers(imageSource)
+imageSource, listCell = obj.searchNumbers2(cv.imread('source/scrin1.jpg',cv.IMREAD_COLOR))
 print(len(listCell))
 obj.display(imageSource)
 

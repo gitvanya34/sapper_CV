@@ -6,7 +6,7 @@ from SapperCell import SapperCell
 from Sapper import Sapper
 import UserActions
 import sys
-
+import time
 
 class ComputerVision(object):
 
@@ -48,7 +48,8 @@ class ComputerVision(object):
     # grayImage(copy.deepcopy(image))
     # closed=edgedImage(copy.deepcopy(image))
 
-    def searchField(self, template, img_rgb):
+    def searchField(self, template,
+                    img_rgb):  # Выполняется только один раз для определеения координат рабочей области # 100 на 100
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
         # template = cv.cvtColor(template, cv.COLOR_BGR2GRAY)
         w, h = template.shape[::-1]
@@ -59,7 +60,7 @@ class ComputerVision(object):
         listTable = []
         for pt in zip(*loc[::-1]):
             cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-            listTable.append(SapperCell(pt[0],  pt[1], pt[0] + w, pt[1] + h, 'table'))
+            listTable.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, 'table'))
 
         self.display(img_rgb)
         print(len(listTable))
@@ -68,6 +69,49 @@ class ComputerVision(object):
         # if image is None:
         #     sys.exit("Could not read the image.")
 
+    def searchNumbers2(self, image):
+        # img_gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+        templates = [cv.imread('top/cell.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top/1.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top/2.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top/3.jpg', cv.IMREAD_COLOR)]
+
+        listCell = []
+        # listCell.append(SapperCell(0, 0, 0, 0, 0))
+
+        for idx, template in enumerate(templates):
+            # image = cv.imread('smiley.png', cv.IMREAD_COLOR)
+            # template = cv.imread('template.png', cv.IMREAD_COLOR)
+
+            h, w = template.shape[:2]
+
+            method = cv.TM_CCORR_NORMED
+            threshold = 0.99
+            start_time = time.time()
+            res = cv.matchTemplate(image, template, method)
+
+            # fake out max_val for first run through loop
+            max_val = 1
+            while max_val > threshold:
+                min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
+
+                if max_val > threshold:
+                    res[max_loc[1] - h // 2:max_loc[1] + h // 2 + 1, max_loc[0] - w // 2:max_loc[0] + w // 2 + 1] = 0
+                    image = cv.rectangle(image, (max_loc[0], max_loc[1]), (max_loc[0] + w + 1, max_loc[1] + h + 1),
+                                          (0,0 , 255))
+                    listCell.append(SapperCell(max_loc[0],max_loc[1],max_loc[0] + w + 1,max_loc[1] + h + 1,idx))
+
+        listCell.sort(key=lambda cell: (cell.y1, cell.x1))
+        # удаляем первый элемент (ложное срабатывание на кнопку)
+        del listCell[0]
+        for i in listCell:
+            print(i.printCell())
+
+
+        return image, listCell
+    #     TODO Заполняем таблицу построчно из сортированного массива первой итерации, затем обновляем значения
+    #      посредством нахождения точки внутри контура.
+    #       необновленные ячейки становятся пустыми (костыли тема)
 
 
     def searchNumbers(self, img_rgb):
@@ -78,26 +122,47 @@ class ComputerVision(object):
                      cv.imread('top/3.jpg', 0)]
 
         listCell = []
+        listCell.append(SapperCell(0, 0, 0, 0, 0))
+
         for idx, temp in enumerate(templates):
             w, h = temp.shape[::-1]
             res = cv.matchTemplate(img_gray, temp, cv.TM_CCORR_NORMED)
             threshold = 0.99
             loc = np.where(res >= threshold)
+
             for pt in zip(*loc[::-1]):
                 # cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
                 # if SapperCell.checkIntersectCells(listCell[-1], listCell[-2]):
                 # for i in listCell:
-                #     if not SapperCell.checkIntersectCellsDistanceBetweenPoints(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx),i):
-                listCell.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx))
+                #     if not SapperCell.checkIntersectCellsDistanceBetweenPoints(
+                #             SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx), listCell[-1]):
+                        listCell.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx))
 
+        listCell.sort(key=lambda cell: (cell.y1, cell.x1))
+        for i, temp in enumerate(listCell):
+            try:
+                if SapperCell.checkIntersectCells(listCell[i], listCell[i+1]):
+                    del listCell[i+1]
+            except:
+                print (-i)
+
+        listCell.sort(key=lambda cell: (cell.x1, cell.y1))
+        for i, temp in enumerate(listCell):
+            try:
+                if SapperCell.checkIntersectCells(listCell[i], listCell[i + 1]):
+                    del listCell[i + 1]
+            except:
+                print(-i)
+
+            # ut.sort(key=lambda x: x.count, reverse=True)
+            # sorted(listCell, key=lambda x: (x[0], -x[1]))
         # for i, tempI in enumerate(listCell):
         #     for j, tempJ in enumerate(listCell):
         #         if not i == j:
-        #             if SapperCell.checkIntersectCells(listCell[i], listCell[j]):
-        #                 listCell.pop(j)
-
+        #             if not SapperCell.checkIntersectCells(listCell[i], listCell[j]):
+        #                 del listCell[j]
         for item in listCell:
-            cv.rectangle(img_rgb, (item.x1,item.y1), (item.x2,item.y2), (0, 0, 255), 2)
+            cv.rectangle(img_rgb, (item.x1, item.y1), (item.x2, item.y2), (0, 0, 255), 2)
 
         ###TODO: удалить из списка listCell все пересекающиеся контуры, оставить только один экземпляр
 
