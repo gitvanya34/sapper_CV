@@ -69,6 +69,10 @@ class SapperCell:
         # print(self.__x+","+self.__y+","+self.value)
         return "[%d, %d, %d, %d, %s]" % (self.__x1, self.__y1, self.__x2, self.__y2, self.__value)
 
+    def printCellValue(self):
+        # print(self.__x+","+self.__y+","+self.value)
+        return "[%s]" % (self.__value)
+
     @staticmethod
     def checkIntersectCells(a, b):
         # print( cellA.x2 >= cellB.x1 and cellA.x1 <= cellB.x2 and cellA.y1 <= cellB.y2 and cellA.y2 >= cellB.y1)

@@ -10,7 +10,8 @@ import time
 
 class ComputerVision(object):
 
-    def display(self, img, frameName="OpenCV Image"):
+    @staticmethod
+    def display( img, frameName="OpenCV Image"):
         copyImg = copy.deepcopy(img)
         h, w = img.shape[0:2]
         neww = 1000
@@ -47,8 +48,8 @@ class ComputerVision(object):
     # yelowRectangle(copy.deepcopy(image),0,0,100,100)
     # grayImage(copy.deepcopy(image))
     # closed=edgedImage(copy.deepcopy(image))
-
-    def searchField(self, template,
+    @staticmethod
+    def searchField(template,
                     img_rgb):  # Выполняется только один раз для определеения координат рабочей области # 100 на 100
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
         # template = cv.cvtColor(template, cv.COLOR_BGR2GRAY)
@@ -62,14 +63,15 @@ class ComputerVision(object):
             cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
             listTable.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, 'table'))
 
-        self.display(img_rgb)
+        ComputerVision.display(img_rgb)
         print(len(listTable))
         return img_rgb, listTable
 
         # if image is None:
         #     sys.exit("Could not read the image.")
 
-    def searchNumbers2(self, image):
+    @staticmethod
+    def searchNumbers2( image):
         # img_gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         templates = [cv.imread('top/cell.jpg', cv.IMREAD_COLOR),
                      cv.imread('top/1.jpg', cv.IMREAD_COLOR),
@@ -103,7 +105,7 @@ class ComputerVision(object):
 
         listCell.sort(key=lambda cell: (cell.y1, cell.x1))
         # удаляем первый элемент (ложное срабатывание на кнопку)
-        del listCell[0]
+        # del listCell[0]
         for i in listCell:
             print(i.printCell())
 
@@ -113,7 +115,7 @@ class ComputerVision(object):
     #      посредством нахождения точки внутри контура.
     #       необновленные ячейки становятся пустыми (костыли тема)
 
-
+    @staticmethod
     def searchNumbers(self, img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
         templates = [cv.imread('top/cell.jpg', 0),
