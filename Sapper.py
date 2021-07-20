@@ -36,4 +36,4 @@ class Sapper:
 
     def printTableValue(self):
         for i in range(len(self.table)):
-            print(' '.join([self.table[i][j].printCellValue() for j in range(len(self.table[i]))]))
+            print(''.join([self.table[i][j].printCellValue() for j in range(len(self.table[i]))]))

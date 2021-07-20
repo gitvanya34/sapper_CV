@@ -34,12 +34,14 @@ i, j = 0,0
 for cell in listCell:
     sapper.tableSet(j, i, cell.x1, cell.y1, cell.x2, cell.y2, cell.value)
     i = i + 1
-    if i > 29:
+    if i >= 30:
         i = 0
         j = j + 1
 
 sapper.print()
+sapper.printTableValue()
 
+# TODO: расикдать втруб интерацию ,сделать функцию определения причасности к ячейке (запрещенной в россии организации)))
 # следующая итерация после первого клика по полю
 imageSource, listCell = ComputerVision.searchNumbers2(cv.imread('source/scrin1.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
