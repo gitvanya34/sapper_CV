@@ -39,6 +39,7 @@ class Sapper:
         for i in range(len(self.table)):
             print(''.join([self.table[i][j].printCellValue() for j in range(len(self.table[i]))]))
 
+    # Обновляем ячейки актуальным изображением, ищем пустые клетки
     def refreshTable(self, listCell):
         for i in range(self.n):
             for j in range(self.m):

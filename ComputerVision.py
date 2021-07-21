@@ -50,7 +50,7 @@ class ComputerVision(object):
     # grayImage(copy.deepcopy(image))
     # closed=edgedImage(copy.deepcopy(image))
 
-    # определяем поле рабочего пространства
+    # определяем поле рабочего пространства #ограничить поле поиска по значениям координат поля searchField
     @staticmethod
     def searchField(template,
                     img_rgb):  # Выполняется только один раз для определеения координат рабочей области # 100 на 100

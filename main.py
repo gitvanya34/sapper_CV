@@ -25,7 +25,6 @@ tableFieldCoord = ComputerVision.searchField(cv.imread('test3/TempStartTable.jpg
                            imageStart)  # выполняется только один раз в начале что бы определить координаты рабочей области
 
 # Находим ячейки первой итерацией определяем координаты ячеек
-# TODO ограничить поле поиска по значениям координат поля searchField
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord ,cv.imread('test3/start.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
 ComputerVision.display(imageSource)
@@ -41,15 +40,18 @@ for cell in listCell:
 sapper.printTableValue()
 
 # Клик по рандомной ячеке (или  не рандомной)
+# TODO : КЛик по рандомной ячейке
 
-
-# TODO: расикдать втруб интерацию ,сделать функцию определения причасности к ячейке (запрещенной в россии организации)))
 # следующая итерация после первого клика по полю
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/firstClick.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
 sapper.refreshTable(listCell)
 sapper.printTableValue()
 ComputerVision.display(imageSource)
+
+# Первый этап решения
+# TODO : Заполняем все мины которые изветны
+# TODO : Кликаем там где уверены на 100%
 
 # следующая итерация после разметки первого клика
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/secondClick.jpg', cv.IMREAD_COLOR))
