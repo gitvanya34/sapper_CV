@@ -35,5 +35,24 @@ class Sapper:
             print(' '.join([self.table[i][j].printCell() for j in range(len(self.table[i]))]))
 
     def printTableValue(self):
+        print(" ")
         for i in range(len(self.table)):
             print(''.join([self.table[i][j].printCellValue() for j in range(len(self.table[i]))]))
+
+    def refreshTable(self, listCell):
+        for i in range(self.n):
+            for j in range(self.m):
+                for l in listCell:
+                    x = (l.x1 + l.x2) / 2
+                    y = (l.y1 + l.y2) / 2
+                    if  self.table[i][j].x1 <= x <= self.table[i][j].x2 and \
+                        self.table[i][j].y1 <= y <= self.table[i][j].y2:
+                        self.table[i][j].value = l.value
+                        self.table[i][j].refresh = True # обновилась ли ячейка в таблице
+                        # print (True)
+
+        for i in range(self.n):
+            for j in range(self.m):
+                if not self.table[i][j].refresh:
+                    self.table[i][j].value = "\033[0m{}".format(" ")
+                self.table[i][j].refresh = False

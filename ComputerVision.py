@@ -80,7 +80,11 @@ class ComputerVision(object):
                      cv.imread('top2/1.jpg', cv.IMREAD_COLOR),
                      cv.imread('top2/2.jpg', cv.IMREAD_COLOR),
                      cv.imread('top2/3.jpg', cv.IMREAD_COLOR),
-                     cv.imread('top2/4.jpg', cv.IMREAD_COLOR)]
+                     cv.imread('top2/4.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/5.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/6.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/flag.jpg', cv.IMREAD_COLOR)
+                     ]
 
         listCell = []
         # listCell.append(SapperCell(0, 0, 0, 0, 0))
@@ -88,6 +92,14 @@ class ComputerVision(object):
         for idx, template in enumerate(templates):
             # image = cv.imread('smiley.png', cv.IMREAD_COLOR)
             # template = cv.imread('template.png', cv.IMREAD_COLOR)
+            if idx == 0: nameCell = "\033[0m\033[40m{}".format("0")
+            if idx == 1: nameCell = "\033[0m\033[1m\033[34m{}".format("1")+"\033[0m"
+            if idx == 2: nameCell = "\033[0m\033[1m\033[34m{}".format("2")+"\033[0m"
+            if idx == 3: nameCell = "\033[0m\033[1m\033[34m{}".format("3")+"\033[0m"
+            if idx == 4: nameCell = "\033[0m\033[1m\033[34m{}".format("4")+"\033[0m"
+            if idx == 5: nameCell = "\033[0m\033[1m\033[34m{}".format("5")+"\033[0m"
+            if idx == 6: nameCell = "\033[0m\033[1m\033[34m{}".format("6")+"\033[0m"
+            if idx == 7: nameCell = "\033[0m\033[1m\033[31m{}".format("X")+"\033[0m"
 
             h, w = template.shape[:2]
 
@@ -103,7 +115,7 @@ class ComputerVision(object):
 
                 if max_val > threshold:
                     res[max_loc[1] - h // 2:max_loc[1] + h // 2 + 1, max_loc[0] - w // 2:max_loc[0] + w // 2 + 1] = 0
-                    a = SapperCell(max_loc[0], max_loc[1], max_loc[0] + w + 1, max_loc[1] + h + 1, idx)
+                    a = SapperCell(max_loc[0], max_loc[1], max_loc[0] + w + 1, max_loc[1] + h + 1, nameCell)
                     if SapperCell.checkIntersectCells(a, tableFieldCoord):
                         image = cv.rectangle(image, (max_loc[0], max_loc[1]), (max_loc[0] + w + 1, max_loc[1] + h + 1),
                                              (0, 0, 255), 2)
@@ -112,8 +124,8 @@ class ComputerVision(object):
         listCell.sort(key=lambda cell: (cell.y1, cell.x1))
         # удаляем первый элемент (ложное срабатывание на кнопку)
         # del listCell[0]
-        for i in listCell:
-            print(i.printCell())
+        # for i in listCell:
+        #     print(i.printCell())
 
         return image, listCell
 
@@ -122,17 +134,19 @@ class ComputerVision(object):
     #       необновленные ячейки становятся пустыми (костыли тема)
 
     @staticmethod
-    def searchNumbers(self, img_rgb):
+    def searchNumbers(img_rgb):
         img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
         templates = [cv.imread('top/cell.jpg', 0),
                      cv.imread('top/1.jpg', 0),
                      cv.imread('top/2.jpg', 0),
-                     cv.imread('top/3.jpg', 0)]
+                     cv.imread('top/3.jpg', 0),
+                     cv.imread('top/flag.jpg', 0)]
 
         listCell = []
         listCell.append(SapperCell(0, 0, 0, 0, 0))
 
         for idx, temp in enumerate(templates):
+
             w, h = temp.shape[::-1]
             res = cv.matchTemplate(img_gray, temp, cv.TM_CCORR_NORMED)
             threshold = 0.99

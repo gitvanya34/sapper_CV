@@ -37,14 +37,24 @@ for cell in listCell:
     if i >= 30:
         i = 0
         j = j + 1
-
-sapper.print()
+# sapper.print()
 sapper.printTableValue()
+
+# Клик по рандомной ячеке (или  не рандомной)
+
 
 # TODO: расикдать втруб интерацию ,сделать функцию определения причасности к ячейке (запрещенной в россии организации)))
 # следующая итерация после первого клика по полю
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/firstClick.jpg', cv.IMREAD_COLOR))
-print(len(listCell))
+# print(len(listCell))
+sapper.refreshTable(listCell)
+sapper.printTableValue()
 ComputerVision.display(imageSource)
 
+# следующая итерация после разметки первого клика
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/secondClick.jpg', cv.IMREAD_COLOR))
+# print(len(listCell))
+sapper.refreshTable(listCell)
+sapper.printTableValue()
+ComputerVision.display(imageSource)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

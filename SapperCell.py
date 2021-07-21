@@ -5,8 +5,9 @@ class SapperCell:
     __x2 = 0
     __y2 = 0
     __value = ''
+    __refresh = False
 
-    def __init__(self, x1=0, y1=0, x2=0, y2=0, val=0):
+    def __init__(self, x1=0, y1=0, x2=0, y2=0, val=0,refresh = False):
         # self.__x = (x1 + x2) / 2
         # self.__y = (y2 + y1) / 2
         self.__x1 = x1
@@ -14,6 +15,7 @@ class SapperCell:
         self.__x2 = x2
         self.__y2 = y2
         self.__value = val
+        self.__refresh = refresh
 
     @property
     def x1(self):
@@ -55,6 +57,14 @@ class SapperCell:
     def value(self, val):
         self.__value = val
 
+    @property
+    def refresh(self):
+        return self.__refresh
+
+    @refresh.setter
+    def refresh(self, val):
+        self.__refresh = val
+
     def SapperCell(self, x1, y1, x2, y2, val):
         # self.__x = (x1 + x2) / 2
         # self.__y = (y2 + y1) / 2
@@ -71,7 +81,7 @@ class SapperCell:
 
     def printCellValue(self):
         # print(self.__x+","+self.__y+","+self.value)
-        return "[%s]" % (self.__value)
+        return "%s " % (self.__value)
 
     @staticmethod
     def checkIntersectCells(a, b):
