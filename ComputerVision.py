@@ -8,10 +8,11 @@ import UserActions
 import sys
 import time
 
+
 class ComputerVision(object):
 
     @staticmethod
-    def display( img, frameName="OpenCV Image"):
+    def display(img, frameName="OpenCV Image"):
         copyImg = copy.deepcopy(img)
         h, w = img.shape[0:2]
         neww = 1000
@@ -48,6 +49,8 @@ class ComputerVision(object):
     # yelowRectangle(copy.deepcopy(image),0,0,100,100)
     # grayImage(copy.deepcopy(image))
     # closed=edgedImage(copy.deepcopy(image))
+
+    # определяем поле рабочего пространства
     @staticmethod
     def searchField(template,
                     img_rgb):  # Выполняется только один раз для определеения координат рабочей области # 100 на 100
@@ -55,7 +58,7 @@ class ComputerVision(object):
         # template = cv.cvtColor(template, cv.COLOR_BGR2GRAY)
         w, h = template.shape[::-1]
         res = cv.matchTemplate(img_gray, template, cv.TM_CCORR_NORMED)
-        threshold = 0.99999
+        threshold = 0.999
         loc = np.where(res >= threshold)
 
         listTable = []
@@ -65,18 +68,19 @@ class ComputerVision(object):
 
         ComputerVision.display(img_rgb)
         print(len(listTable))
-        return img_rgb, listTable
+        return listTable[-1]
 
         # if image is None:
         #     sys.exit("Could not read the image.")
 
     @staticmethod
-    def searchNumbers2( image):
+    def searchNumbers2(tableFieldCoord, image):
         # img_gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-        templates = [cv.imread('top/cell.jpg', cv.IMREAD_COLOR),
-                     cv.imread('top/1.jpg', cv.IMREAD_COLOR),
-                     cv.imread('top/2.jpg', cv.IMREAD_COLOR),
-                     cv.imread('top/3.jpg', cv.IMREAD_COLOR)]
+        templates = [cv.imread('top2/cell.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/1.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/2.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/3.jpg', cv.IMREAD_COLOR),
+                     cv.imread('top2/4.jpg', cv.IMREAD_COLOR)]
 
         listCell = []
         # listCell.append(SapperCell(0, 0, 0, 0, 0))
@@ -99,9 +103,11 @@ class ComputerVision(object):
 
                 if max_val > threshold:
                     res[max_loc[1] - h // 2:max_loc[1] + h // 2 + 1, max_loc[0] - w // 2:max_loc[0] + w // 2 + 1] = 0
-                    image = cv.rectangle(image, (max_loc[0], max_loc[1]), (max_loc[0] + w + 1, max_loc[1] + h + 1),
-                                          (0,0 , 255))
-                    listCell.append(SapperCell(max_loc[0],max_loc[1],max_loc[0] + w + 1,max_loc[1] + h + 1,idx))
+                    a = SapperCell(max_loc[0], max_loc[1], max_loc[0] + w + 1, max_loc[1] + h + 1, idx)
+                    if SapperCell.checkIntersectCells(a, tableFieldCoord):
+                        image = cv.rectangle(image, (max_loc[0], max_loc[1]), (max_loc[0] + w + 1, max_loc[1] + h + 1),
+                                             (0, 0, 255), 2)
+                        listCell.append(a)
 
         listCell.sort(key=lambda cell: (cell.y1, cell.x1))
         # удаляем первый элемент (ложное срабатывание на кнопку)
@@ -109,8 +115,8 @@ class ComputerVision(object):
         for i in listCell:
             print(i.printCell())
 
-
         return image, listCell
+
     #     TODO Заполняем таблицу построчно из сортированного массива первой итерации, затем обновляем значения
     #      посредством нахождения точки внутри контура.
     #       необновленные ячейки становятся пустыми (костыли тема)
@@ -138,15 +144,15 @@ class ComputerVision(object):
                 # for i in listCell:
                 #     if not SapperCell.checkIntersectCellsDistanceBetweenPoints(
                 #             SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx), listCell[-1]):
-                        listCell.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx))
+                listCell.append(SapperCell(pt[0], pt[1], pt[0] + w, pt[1] + h, idx))
 
         listCell.sort(key=lambda cell: (cell.y1, cell.x1))
         for i, temp in enumerate(listCell):
             try:
-                if SapperCell.checkIntersectCells(listCell[i], listCell[i+1]):
-                    del listCell[i+1]
+                if SapperCell.checkIntersectCells(listCell[i], listCell[i + 1]):
+                    del listCell[i + 1]
             except:
-                print (-i)
+                print(-i)
 
         listCell.sort(key=lambda cell: (cell.x1, cell.y1))
         for i, temp in enumerate(listCell):

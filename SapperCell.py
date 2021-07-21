@@ -77,22 +77,22 @@ class SapperCell:
     def checkIntersectCells(a, b):
         # print( cellA.x2 >= cellB.x1 and cellA.x1 <= cellB.x2 and cellA.y1 <= cellB.y2 and cellA.y2 >= cellB.y1)
         # return a.x2 >= b.x1 and a.x1 <= b.x2 and a.y1 <= b.y2 and a.y2 >= b.y1
-        # ax1, ay1, ax2, ay2 = cellA.x1, cellA.y1, cellA.x2, cellA.y2  # прямоугольник А
-        # bx1, by1, bx2, by2 = cellB.x1, cellB.y1, cellB.x2, cellB.y2  # прямоугольник B
-        #
-        # xA = [ax1, ax2]  # координаты x обеих точек прямоугольника А
-        # xB = [bx1, bx2]  # координаты x обеих точке прямоугольника В
-        # yA = [ay1, ay2]  # координаты x обеих точек прямоугольника А
-        # yB = [by1, by2]  # координаты x обеих точек прямоугольника В
-        # if max(xA) < min(xB) or max(yA) < min(yB) or min(yA) > max(yB):
-        #     return False  # не пересекаются
-        # elif max(xA) > min(xB) and min(xA) < min(xB):
-        #     dx = max(xA) - min(xB)
-        #     return True  # пересекаются
-        # else:
-        #     return True  # пересекаются
+        ax1, ay1, ax2, ay2 = a.x1, a.y1, a.x2, a.y2  # прямоугольник А
+        bx1, by1, bx2, by2 = b.x1, b.y1, b.x2, b.y2  # прямоугольник B
+
+        xA = [ax1, ax2]  # координаты x обеих точек прямоугольника А
+        xB = [bx1, bx2]  # координаты x обеих точке прямоугольника В
+        yA = [ay1, ay2]  # координаты x обеих точек прямоугольника А
+        yB = [by1, by2]  # координаты x обеих точек прямоугольника В
+        if max(xA) < min(xB) or max(yA) < min(yB) or min(yA) > max(yB):
+            return False  # не пересекаются
+        elif max(xA) > min(xB) and min(xA) < min(xB):
+            dx = max(xA) - min(xB)
+            return True  # пересекаются
+        else:
+            return True  # пересекаются
         # print(a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2)
-         return a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2
+        #  return a.y1 < b.y2 or a.y2 > b.y1 or a.x2 < b.x1 or a.x1 > b.x2
 
     @staticmethod
     def checkIntersectCellsDistanceBetweenPoints(a, b):

@@ -7,8 +7,8 @@ import cv2 as cv
 from ComputerVision import ComputerVision
 from Sapper import Sapper
 
-imageSource = cv.imread('source/scrin1.jpg')
-imageStart = cv.imread('source/test1.jpg')
+imageSource = cv.imread('test3/start.jpg')
+imageStart = cv.imread('test3/start.jpg')
 
 ###TODO: 1)Засунауть класс Sapper в CV,
 #         2)найти способ перенести контуры в массив с определением типа контура(исключить лишние контуры )
@@ -20,13 +20,13 @@ sapper.print()
 sapper.tableSet(1, 1, 1, 2, 3, 4, '[eq')
 sapper.print()
 
-# определяем поле
-ComputerVision.searchField(cv.imread('source/StartTable.jpg', 0),
+# определяем поле рабочего пространства
+tableFieldCoord = ComputerVision.searchField(cv.imread('test3/TempStartTable.jpg', 0),
                            imageStart)  # выполняется только один раз в начале что бы определить координаты рабочей области
 
 # Находим ячейки первой итерацией определяем координаты ячеек
 # TODO ограничить поле поиска по значениям координат поля searchField
-imageSource, listCell = ComputerVision.searchNumbers2(cv.imread('source/test1.jpg', cv.IMREAD_COLOR))
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord ,cv.imread('test3/start.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
 ComputerVision.display(imageSource)
 # раскидываем координаты по ячейкам в двумерном массиве
@@ -43,7 +43,7 @@ sapper.printTableValue()
 
 # TODO: расикдать втруб интерацию ,сделать функцию определения причасности к ячейке (запрещенной в россии организации)))
 # следующая итерация после первого клика по полю
-imageSource, listCell = ComputerVision.searchNumbers2(cv.imread('source/scrin1.jpg', cv.IMREAD_COLOR))
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/firstClick.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
 ComputerVision.display(imageSource)
 
