@@ -108,6 +108,7 @@ class ComputerVision(object):
             start_time = time.time()
             res = cv.matchTemplate(image, template, method)
 
+
             # fake out max_val for first run through loop
             max_val = 1
             while max_val > threshold:
