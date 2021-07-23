@@ -6,6 +6,10 @@ import UserActions
 import cv2 as cv
 from ComputerVision import ComputerVision
 from Sapper import Sapper
+from UserActions import UserActions
+
+UserActions.testAction()
+
 
 imageSource = cv.imread('test3/start.jpg')
 imageStart = cv.imread('test3/start.jpg')

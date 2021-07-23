@@ -1,6 +1,10 @@
 import pyautogui
 
 
-class UserAction(object):
-    attr1 = 42
-    attr2 = "Hello, World"
+class UserActions(object):
+    print()
+    @staticmethod
+    def testAction():
+        print()
+    #     pyautogui.moveTo(25, 25)  # Передвинули мышку в левый нижний угол (в район кнопки Start)
+    #     pyautogui.click()  # Сэмулировали нажатие левой кнопки
