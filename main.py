@@ -8,8 +8,6 @@ from ComputerVision import ComputerVision
 from Sapper import Sapper
 from UserActions import UserActions
 
-UserActions.testAction()
-
 
 imageSource = cv.imread('test3/start.jpg')
 imageStart = cv.imread('test3/start.jpg')
@@ -24,16 +22,19 @@ sapper.print()
 sapper.tableSet(1, 1, 1, 2, 3, 4, '[eq')
 sapper.print()
 
+
+UserActions.screenshot()
 # определяем поле рабочего пространства
+UserActions.screenshot()
 tableFieldCoord = ComputerVision.searchField(cv.imread('test3/TempStartTable.jpg', 0),
-                           imageStart)  # выполняется только один раз в начале что бы определить координаты рабочей области
+                                             cv.imread('screenshot.jpg', cv.IMREAD_COLOR))  # выполняется только один раз в начале что бы определить координаты рабочей области
 
 # Находим ячейки первой итерацией определяем координаты ячеек
-imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord ,cv.imread('test3/start.jpg', cv.IMREAD_COLOR))
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,  cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
 ComputerVision.display(imageSource)
 # раскидываем координаты по ячейкам в двумерном массиве
-i, j = 0,0
+i, j = 0, 0
 for cell in listCell:
     sapper.tableSet(j, i, cell.x1, cell.y1, cell.x2, cell.y2, cell.value)
     i = i + 1
@@ -45,9 +46,12 @@ sapper.printTableValue()
 
 # Клик по рандомной ячеке (или  не рандомной)
 # TODO : КЛик по рандомной ячейке
+UserActions.click(sapper.table[8][15].x1,sapper.table[8][15].y1)
 
 # следующая итерация после первого клика по полю
-imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/firstClick.jpg', cv.IMREAD_COLOR))
+UserActions.screenshot()
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
+                                                      cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
 sapper.refreshTable(listCell)
 sapper.printTableValue()
@@ -58,7 +62,8 @@ ComputerVision.display(imageSource)
 # TODO : Кликаем там где уверены на 100%
 
 # следующая итерация после разметки первого клика
-imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,cv.imread('test3/secondClick.jpg', cv.IMREAD_COLOR))
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
+                                                      cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
 sapper.refreshTable(listCell)
 sapper.printTableValue()
