@@ -81,7 +81,16 @@ class SapperCell:
 
     def printCellValue(self):
         # print(self.__x+","+self.__y+","+self.value)
-        return "%s " % (self.__value)
+        nameCell=''
+        if self.__value == '0': nameCell = "\033[0m\033[40m{}".format("0")
+        if self.__value == '1': nameCell = "\033[0m\033[1m\033[34m{}".format("1") + "\033[0m"
+        if self.__value == '2': nameCell = "\033[0m\033[1m\033[34m{}".format("2") + "\033[0m"
+        if self.__value == '3': nameCell = "\033[0m\033[1m\033[34m{}".format("3") + "\033[0m"
+        if self.__value == '4': nameCell = "\033[0m\033[1m\033[34m{}".format("4") + "\033[0m"
+        if self.__value == '5': nameCell = "\033[0m\033[1m\033[34m{}".format("5") + "\033[0m"
+        if self.__value == '6': nameCell = "\033[0m\033[1m\033[34m{}".format("6") + "\033[0m"
+        if self.__value == 'X': nameCell = "\033[0m\033[1m\033[31m{}".format("X") + "\033[0m"
+        return "%s " % (nameCell)
 
     @staticmethod
     def checkIntersectCells(a, b):

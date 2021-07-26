@@ -46,7 +46,7 @@ sapper.printTableValue()
 
 # Клик по рандомной ячеке (или  не рандомной)
 # TODO : КЛик по рандомной ячейке
-UserActions.click(sapper.table[8][15].x1,sapper.table[8][15].y1)
+UserActions.clickLeft(sapper.table[8][15].x1, sapper.table[8][15].y1)
 
 # следующая итерация после первого клика по полю
 UserActions.screenshot()
@@ -58,6 +58,7 @@ sapper.printTableValue()
 ComputerVision.display(imageSource)
 
 # Первый этап решения
+sapper.putFlag()
 # TODO : Заполняем все мины которые изветны
 # TODO : Кликаем там где уверены на 100%
 

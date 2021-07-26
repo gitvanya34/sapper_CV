@@ -92,14 +92,23 @@ class ComputerVision(object):
         for idx, template in enumerate(templates):
             # image = cv.imread('smiley.png', cv.IMREAD_COLOR)
             # template = cv.imread('template.png', cv.IMREAD_COLOR)
-            if idx == 0: nameCell = "\033[0m\033[40m{}".format("0")
-            if idx == 1: nameCell = "\033[0m\033[1m\033[34m{}".format("1")+"\033[0m"
-            if idx == 2: nameCell = "\033[0m\033[1m\033[34m{}".format("2")+"\033[0m"
-            if idx == 3: nameCell = "\033[0m\033[1m\033[34m{}".format("3")+"\033[0m"
-            if idx == 4: nameCell = "\033[0m\033[1m\033[34m{}".format("4")+"\033[0m"
-            if idx == 5: nameCell = "\033[0m\033[1m\033[34m{}".format("5")+"\033[0m"
-            if idx == 6: nameCell = "\033[0m\033[1m\033[34m{}".format("6")+"\033[0m"
-            if idx == 7: nameCell = "\033[0m\033[1m\033[31m{}".format("X")+"\033[0m"
+            # if idx == 0: nameCell = "\033[0m\033[40m{}".format("0")
+            # if idx == 1: nameCell = "\033[0m\033[1m\033[34m{}".format("1")+"\033[0m"
+            # if idx == 2: nameCell = "\033[0m\033[1m\033[34m{}".format("2")+"\033[0m"
+            # if idx == 3: nameCell = "\033[0m\033[1m\033[34m{}".format("3")+"\033[0m"
+            # if idx == 4: nameCell = "\033[0m\033[1m\033[34m{}".format("4")+"\033[0m"
+            # if idx == 5: nameCell = "\033[0m\033[1m\033[34m{}".format("5")+"\033[0m"
+            # if idx == 6: nameCell = "\033[0m\033[1m\033[34m{}".format("6")+"\033[0m"
+            # if idx == 7: nameCell = "\033[0m\033[1m\033[31m{}".format("X")+"\033[0m"
+            if idx == 0: nameCell = '0'
+            if idx == 1: nameCell = '1'
+            if idx == 2: nameCell = '2'
+            if idx == 3: nameCell = '3'
+            if idx == 4: nameCell = '4'
+            if idx == 5: nameCell = '5'
+            if idx == 6: nameCell = '6'
+            if idx == 7: nameCell = 'X'
+
 
             h, w = template.shape[:2]
 

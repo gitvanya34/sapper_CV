@@ -1,5 +1,5 @@
 from SapperCell import SapperCell
-
+from UserActions import UserActions
 
 ###TODO: Клтеки лежат внутри контура таблицы
 
@@ -46,10 +46,10 @@ class Sapper:
                 for l in listCell:
                     x = (l.x1 + l.x2) / 2
                     y = (l.y1 + l.y2) / 2
-                    if  self.table[i][j].x1 <= x <= self.table[i][j].x2 and \
-                        self.table[i][j].y1 <= y <= self.table[i][j].y2:
+                    if self.table[i][j].x1 <= x <= self.table[i][j].x2 and \
+                            self.table[i][j].y1 <= y <= self.table[i][j].y2:
                         self.table[i][j].value = l.value
-                        self.table[i][j].refresh = True # обновилась ли ячейка в таблице
+                        self.table[i][j].refresh = True  # обновилась ли ячейка в таблице
                         # print (True)
 
         for i in range(self.n):
@@ -57,3 +57,103 @@ class Sapper:
                 if not self.table[i][j].refresh:
                     self.table[i][j].value = "\033[0m{}".format(" ")
                 self.table[i][j].refresh = False
+
+
+    def checkFlag(self):
+        countNumber = ['1', '2', '3', '4', '5', '6']
+        for i in range(self.n):
+            for j in range(self.m):
+                countLockCell = 0
+                for number in countNumber:
+                    if self.table[i][j].value == number:#TODO не проходит условие
+                        try:
+                            if self.table[i - 1][j - 1].value == '0' or\
+                               self.table[i - 1][j - 1].value =='newX' or\
+                               self.table[i - 1][j - 1].value =='X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i - 1][j].value == '0' or self.table[i - 1][j].value == 'newX' or self.table[i - 1][j].value == 'X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i - 1][j + 1].value == '0' or self.table[i - 1][j + 1].value =='newX' or self.table[i - 1][j + 1].value =='X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j - 1].value == '0' or self.table[i + 1][j - 1].value =='newX' or self.table[i + 1][j - 1].value =='X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j].value == '0' or self.table[i + 1][j].value == 'newX' or self.table[i + 1][j].value == 'X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j + 1].value == '0' or self.table[i + 1][j + 1].value =='newX' or self.table[i + 1][j + 1].value =='X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i][j - 1].value == '0' or  self.table[i][j - 1].value == 'newX' or  self.table[i][j - 1].value == 'X':
+                                countLockCell += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i][j + 1].value == '0' or self.table[i][j + 1].value =='newX' or self.table[i][j + 1].value =='X':
+                                countLockCell += 1
+                        except:
+                            print()
+                    if countLockCell == int(number) and countLockCell:
+                        try:
+                            if self.table[i - 1][j - 1].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i - 1][j].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i - 1][j + 1].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j - 1].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j + 1].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i][j - 1].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+                        try:
+                            if self.table[i][j + 1].value == '0':
+                                self.table[i][j + 1].value == 'newX'
+                        except:
+                            print()
+
+    def putFlag(self):
+        self.checkFlag()
+        for i in range(self.n):
+            for j in range(self.m):
+                if self.table[i][j].value == 'newX':
+                    self.table[i][j].value = 'X'
+                    UserActions.clickRight(self.table[i][j].x1, self.table[i][j].y1)
