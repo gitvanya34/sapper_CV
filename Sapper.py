@@ -150,6 +150,7 @@ class Sapper:
                         except:
                             print()
 
+
     def putFlag(self):
         self.checkFlag()
         for i in range(self.n):
