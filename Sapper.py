@@ -1,6 +1,7 @@
 from SapperCell import SapperCell
 from UserActions import UserActions
 
+
 ###TODO: Клтеки лежат внутри контура таблицы
 
 class Sapper:
@@ -58,53 +59,59 @@ class Sapper:
                     self.table[i][j].value = "\033[0m{}".format(" ")
                 self.table[i][j].refresh = False
 
-
     def checkFlag(self):
         countNumber = ['1', '2', '3', '4', '5', '6']
         for i in range(self.n):
             for j in range(self.m):
                 countLockCell = 0
                 for number in countNumber:
-                    if self.table[i][j].value == number:#TODO не проходит условие
+                    if self.table[i][j].value == number:  # TODO не проходит условие
                         try:
-                            if self.table[i - 1][j - 1].value == '0' or\
-                               self.table[i - 1][j - 1].value =='newX' or\
-                               self.table[i - 1][j - 1].value =='X':
+                            if self.table[i - 1][j - 1].value == '0' or \
+                                    self.table[i - 1][j - 1].value == 'newX' or \
+                                    self.table[i - 1][j - 1].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j].value == '0' or self.table[i - 1][j].value == 'newX' or self.table[i - 1][j].value == 'X':
+                            if self.table[i - 1][j].value == '0' or self.table[i - 1][j].value == 'newX' or \
+                                    self.table[i - 1][j].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j + 1].value == '0' or self.table[i - 1][j + 1].value =='newX' or self.table[i - 1][j + 1].value =='X':
+                            if self.table[i - 1][j + 1].value == '0' or self.table[i - 1][j + 1].value == 'newX' or \
+                                    self.table[i - 1][j + 1].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j - 1].value == '0' or self.table[i + 1][j - 1].value =='newX' or self.table[i + 1][j - 1].value =='X':
+                            if self.table[i + 1][j - 1].value == '0' or self.table[i + 1][j - 1].value == 'newX' or \
+                                    self.table[i + 1][j - 1].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j].value == '0' or self.table[i + 1][j].value == 'newX' or self.table[i + 1][j].value == 'X':
+                            if self.table[i + 1][j].value == '0' or self.table[i + 1][j].value == 'newX' or \
+                                    self.table[i + 1][j].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j + 1].value == '0' or self.table[i + 1][j + 1].value =='newX' or self.table[i + 1][j + 1].value =='X':
+                            if self.table[i + 1][j + 1].value == '0' or self.table[i + 1][j + 1].value == 'newX' or \
+                                    self.table[i + 1][j + 1].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i][j - 1].value == '0' or  self.table[i][j - 1].value == 'newX' or  self.table[i][j - 1].value == 'X':
+                            if self.table[i][j - 1].value == '0' or self.table[i][j - 1].value == 'newX' or \
+                                    self.table[i][j - 1].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i][j + 1].value == '0' or self.table[i][j + 1].value =='newX' or self.table[i][j + 1].value =='X':
+                            if self.table[i][j + 1].value == '0' or self.table[i][j + 1].value == 'newX' or \
+                                    self.table[i][j + 1].value == 'X':
                                 countLockCell += 1
                         except:
                             print()
@@ -149,7 +156,6 @@ class Sapper:
                                 self.table[i][j + 1].value == 'newX'
                         except:
                             print()
-
 
     def putFlag(self):
         self.checkFlag()
