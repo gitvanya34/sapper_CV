@@ -59,6 +59,7 @@ class Sapper:
                     self.table[i][j].value = "\033[0m{}".format(" ")
                 self.table[i][j].refresh = False
 
+
     def checkFlag(self):
         countNumber = ['1', '2', '3', '4', '5', '6']
         for i in range(self.n):
