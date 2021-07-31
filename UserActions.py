@@ -23,3 +23,9 @@ class UserActions(object):
         pyautogui.moveTo(x, y)  # Передвинули мышку в левый нижний угол (в район кнопки Start)
         pyautogui.rightClick() # Сэмулировали нажатие левой кнопки
         # pyautogui.click()  # Сэмулировали нажатие левой кнопки
+
+    @staticmethod
+    def clickMiddle(x, y):
+        pyautogui.moveTo(x, y)  # Передвинули мышку в левый нижний угол (в район кнопки Start)
+        pyautogui.click(button='middle') # Сэмулировали нажатие левой кнопки
+
