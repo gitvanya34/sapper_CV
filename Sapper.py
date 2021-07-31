@@ -120,37 +120,37 @@ class Sapper:
                     if countLockCell == int(number) : #and countLockCell
                         try:
                             if self.table[i - 1][j - 1].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i - 1][j - 1].value== 'newX'
                         except:
                             print()
                         try:
                             if self.table[i - 1][j].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i - 1][j].value == '0' == 'newX'
                         except:
                             print()
                         try:
                             if self.table[i - 1][j + 1].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i - 1][j + 1].value == 'newX'
                         except:
                             print()
                         try:
                             if self.table[i + 1][j - 1].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i + 1][j - 1].value  == 'newX'
                         except:
                             print()
                         try:
                             if self.table[i + 1][j].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i + 1][j].value  == 'newX'
                         except:
                             print()
                         try:
                             if self.table[i + 1][j + 1].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i + 1][j + 1].value == 'newX'
                         except:
                             print()
                         try:
                             if self.table[i][j - 1].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i][j - 1].value == 'newX'
                         except:
                             print()
                         try:

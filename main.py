@@ -66,7 +66,8 @@ imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
                                                       cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
 sapper.refreshTable(listCell)
-sapper.table[1][1].value = 'lll'
+sapper.table[1][1].value ="lljjjjjjjjjjjjjjl"
+sapper.table[1][2].value ="ljjjjjjjjjjjjjjll"
 sapper.printTableValue()
 ComputerVision.display(imageSource)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
