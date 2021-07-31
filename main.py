@@ -8,7 +8,6 @@ from ComputerVision import ComputerVision
 from Sapper import Sapper
 from UserActions import UserActions
 
-
 imageSource = cv.imread('test3/start.jpg')
 imageStart = cv.imread('test3/start.jpg')
 
@@ -22,15 +21,15 @@ sapper.print()
 sapper.tableSet(1, 1, 1, 2, 3, 4, '[eq')
 sapper.print()
 
-
 UserActions.screenshot()
 # определяем поле рабочего пространства
 UserActions.screenshot()
 tableFieldCoord = ComputerVision.searchField(cv.imread('test3/TempStartTable.jpg', 0),
-                                             cv.imread('screenshot.jpg', cv.IMREAD_COLOR))  # выполняется только один раз в начале что бы определить координаты рабочей области
+                                             cv.imread('screenshot.jpg',
+                                                       cv.IMREAD_COLOR))  # выполняется только один раз в начале что бы определить координаты рабочей области
 
 # Находим ячейки первой итерацией определяем координаты ячеек
-imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,  cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
+imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord, cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
 ComputerVision.display(imageSource)
 # раскидываем координаты по ячейкам в двумерном массиве
@@ -67,6 +66,7 @@ imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
                                                       cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
 sapper.refreshTable(listCell)
+sapper.table[1][1].value = 'lll'
 sapper.printTableValue()
 ComputerVision.display(imageSource)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

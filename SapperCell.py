@@ -90,6 +90,7 @@ class SapperCell:
         if self.__value == '5': nameCell = "\033[0m\033[1m\033[34m{}".format("5") + "\033[0m"
         if self.__value == '6': nameCell = "\033[0m\033[1m\033[34m{}".format("6") + "\033[0m"
         if self.__value == 'X': nameCell = "\033[0m\033[1m\033[31m{}".format("X") + "\033[0m"
+        if self.__value == ' ': nameCell = "\033[0m{}".format(" ")
         return "%s " % (nameCell)
 
     @staticmethod
