@@ -52,22 +52,26 @@ UserActions.screenshot()
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
                                                       cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
+
 sapper.refreshTable(listCell)
 sapper.printTableValue()
 ComputerVision.display(imageSource)
 
 # Первый этап решения
 sapper.putFlag()
+sapper.printTableValue()
 # TODO : Заполняем все мины которые изветны
 # TODO : Кликаем там где уверены на 100%
 
 # следующая итерация после разметки первого клика
+UserActions.screenshot()
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
                                                       cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 # print(len(listCell))
+
 sapper.refreshTable(listCell)
-sapper.table[1][1].value ="lljjjjjjjjjjjjjjl"
-sapper.table[1][2].value ="ljjjjjjjjjjjjjjll"
+# sapper.table[1][1].value("lljjl")
+# sapper.table[1][2].value("ljjll")
 sapper.printTableValue()
 ComputerVision.display(imageSource)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

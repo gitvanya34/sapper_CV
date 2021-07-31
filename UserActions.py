@@ -21,5 +21,5 @@ class UserActions(object):
     @staticmethod
     def clickRight(x, y):
         pyautogui.moveTo(x, y)  # Передвинули мышку в левый нижний угол (в район кнопки Start)
-        pyautogui.click()  # Сэмулировали нажатие левой кнопки
+        pyautogui.rightClick() # Сэмулировали нажатие левой кнопки
         # pyautogui.click()  # Сэмулировали нажатие левой кнопки

@@ -1,13 +1,15 @@
 import math
+
+
 class SapperCell:
     __x1 = 0
     __y1 = 0
     __x2 = 0
     __y2 = 0
-    __value = ''
+    value = 'l'
     __refresh = False
 
-    def __init__(self, x1=0, y1=0, x2=0, y2=0, val=0,refresh = False):
+    def __init__(self, x1=0, y1=0, x2=0, y2=0, val=0, refresh=False):
         # self.__x = (x1 + x2) / 2
         # self.__y = (y2 + y1) / 2
         self.__x1 = x1
@@ -81,7 +83,7 @@ class SapperCell:
 
     def printCellValue(self):
         # print(self.__x+","+self.__y+","+self.value)
-        nameCell=''
+        nameCell = ''
         if self.__value == '0': nameCell = "\033[0m\033[40m{}".format("0")
         if self.__value == '1': nameCell = "\033[0m\033[1m\033[34m{}".format("1") + "\033[0m"
         if self.__value == '2': nameCell = "\033[0m\033[1m\033[34m{}".format("2") + "\033[0m"

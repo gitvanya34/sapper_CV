@@ -56,9 +56,8 @@ class Sapper:
         for i in range(self.n):
             for j in range(self.m):
                 if not self.table[i][j].refresh:
-                    self.table[i][j].value = " "#"\033[0m{}".format(" ")
+                    self.table[i][j].value = " "  # "\033[0m{}".format(" ")
                 self.table[i][j].refresh = False
-
 
     def checkFlag(self):
         countNumber = ['1', '2', '3', '4', '5', '6']
@@ -117,51 +116,50 @@ class Sapper:
                         except:
                             print()
 
-                    if countLockCell == int(number) : #and countLockCell
+                    if countLockCell == int(number):  # and countLockCell
                         try:
                             if self.table[i - 1][j - 1].value == '0':
-                                self.table[i - 1][j - 1].value== 'newX'
+                                self.table[i - 1][j - 1].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i - 1][j].value == '0':
-                                self.table[i - 1][j].value == '0' == 'newX'
+                                self.table[i - 1][j].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i - 1][j + 1].value == '0':
-                                self.table[i - 1][j + 1].value == 'newX'
+                                self.table[i - 1][j + 1].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i + 1][j - 1].value == '0':
-                                self.table[i + 1][j - 1].value  == 'newX'
+                                self.table[i + 1][j - 1].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i + 1][j].value == '0':
-                                self.table[i + 1][j].value  == 'newX'
+                                self.table[i + 1][j].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i + 1][j + 1].value == '0':
-                                self.table[i + 1][j + 1].value == 'newX'
+                                self.table[i + 1][j + 1].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i][j - 1].value == '0':
-                                self.table[i][j - 1].value == 'newX'
+                                self.table[i][j - 1].value = 'newX'
                         except:
                             print()
                         try:
                             if self.table[i][j + 1].value == '0':
-                                self.table[i][j + 1].value == 'newX'
+                                self.table[i][j + 1].value = 'newX'
                         except:
                             print()
 
     def putFlag(self):
         self.checkFlag()
-        print()
         for i in range(self.n):
             for j in range(self.m):
                 if self.table[i][j].value == 'newX':
