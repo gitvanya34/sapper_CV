@@ -6,7 +6,7 @@ class SapperCell:
     __y1 = 0
     __x2 = 0
     __y2 = 0
-    value = 'l'
+    __value = ''
     __refresh = False
 
     def __init__(self, x1=0, y1=0, x2=0, y2=0, val=0, refresh=False):
