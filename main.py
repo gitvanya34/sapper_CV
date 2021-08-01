@@ -11,11 +11,6 @@ from UserActions import UserActions
 imageSource = cv.imread('test3/start.jpg')
 imageStart = cv.imread('test3/start.jpg')
 
-###TODO: 1)Засунауть класс Sapper в CV,
-#         2)найти способ перенести контуры в массив с определением типа контура(исключить лишние контуры )
-#         3) эмулировтаь работу пользоватея
-#          4) Определять пустые ячейки путем исключения найденных и не найденых(на первой итерации все нашлись и добавились в массив )
-#          5) определеить флаги
 sapper = Sapper()
 sapper.print()
 sapper.tableSet(1, 1, 1, 2, 3, 4, '[eq')
@@ -23,7 +18,6 @@ sapper.print()
 
 UserActions.screenshot()
 # определяем поле рабочего пространства
-UserActions.screenshot()
 tableFieldCoord = ComputerVision.searchField(cv.imread('test3/TempStartTable.jpg', 0),
                                              cv.imread('screenshot.jpg',
                                                        cv.IMREAD_COLOR))  # выполняется только один раз в начале что бы определить координаты рабочей области
@@ -31,7 +25,7 @@ tableFieldCoord = ComputerVision.searchField(cv.imread('test3/TempStartTable.jpg
 # Находим ячейки первой итерацией определяем координаты ячеек
 imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord, cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
 print(len(listCell))
-ComputerVision.display(imageSource)
+# ComputerVision.display(imageSource)
 # раскидываем координаты по ячейкам в двумерном массиве
 i, j = 0, 0
 for cell in listCell:
@@ -44,7 +38,7 @@ for cell in listCell:
 sapper.printTableValue()
 
 # Клик по рандомной ячеке (или  не рандомной)
-# TODO : КЛик по рандомной ячейке
+
 UserActions.clickLeft(sapper.table[8][15].x1, sapper.table[8][15].y1)
 
 # следующая итерация после первого клика по полю
@@ -55,23 +49,19 @@ imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
 
 sapper.refreshTable(listCell)
 sapper.printTableValue()
-ComputerVision.display(imageSource)
+# ComputerVision.display(imageSource)
 
 # Первый этап решения
 sapper.putFlag()
 sapper.printTableValue()
-# TODO : Заполняем все мины которые изветны
-# TODO : Кликаем там где уверены на 100%
-
 # следующая итерация после разметки первого клика
-UserActions.screenshot()
-imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
-                                                      cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
-# print(len(listCell))
-
-sapper.refreshTable(listCell)
-# sapper.table[1][1].value("lljjl")
-# sapper.table[1][2].value("ljjll")
-sapper.printTableValue()
-ComputerVision.display(imageSource)
+while True:# TODO отключение по кнопке
+    UserActions.screenshot()
+    imageSource, listCell = ComputerVision.searchNumbers2(tableFieldCoord,
+                                                          cv.imread('screenshot.jpg', cv.IMREAD_COLOR))
+    sapper.refreshTable(listCell)
+    sapper.printTableValue()
+    sapper.putFlag()
+    sapper.printTableValue()
+# ComputerVision.display(imageSource)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

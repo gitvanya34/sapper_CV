@@ -172,50 +172,92 @@ class Sapper:
         for i in range(self.n):
             for j in range(self.m):
                 for number in countNumber:
-                    countLockCell = 0
+                    countFlag = 0
+                    countClosed = 0
                     if self.table[i][j].value == number:  #
                         try:
                             if self.table[i - 1][j - 1].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i - 1][j].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i - 1][j + 1].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i + 1][j - 1].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i + 1][j].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i + 1][j + 1].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i][j - 1].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
                         try:
                             if self.table[i][j + 1].value == 'X':
-                                countLockCell += 1
+                                countFlag += 1
                         except:
                             print()
 
-                    if countLockCell == int(number):  # and countLockCell
+
+                        try:
+                            if self.table[i - 1][j - 1].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i - 1][j].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i - 1][j + 1].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j - 1].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i + 1][j + 1].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i][j - 1].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                        try:
+                            if self.table[i][j + 1].value == '0':
+                                countClosed += 1
+                        except:
+                            print()
+                    if countFlag == int(number) and countClosed > 0:  # and countLockCell
                         UserActions.clickMiddle(self.table[i][j].x1, self.table[i][j].y1)
 
     # def openCell(self):
