@@ -61,106 +61,137 @@ class Sapper:
 
     def checkFlag(self):
         countNumber = ['1', '2', '3', '4', '5', '6']
-        for i in range(0,self.n):
-            for j in range(0,self.m):
+        for i in range(0, self.n):
+            for j in range(0, self.m):
                 for number in countNumber:
                     countLockCell = 0
                     if self.table[i][j].value == number:  # TODO баг с повтором первых строк
                         try:
-                            if self.table[i - 1][j - 1].value == '0' or \
-                                    self.table[i - 1][j - 1].value == 'newX' or \
-                                    self.table[i - 1][j - 1].value == 'X':
+                            if self.table[i - 1][j - 1].value == '0' \
+                                    or self.table[i - 1][j - 1].value == 'newX' \
+                                    or self.table[i - 1][j - 1].value == 'X' \
+                                    and 0 <= i - 1 \
+                                    and 0 <= j - 1:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j].value == '0' or self.table[i - 1][j].value == 'newX' or \
-                                    self.table[i - 1][j].value == 'X':
+                            if self.table[i - 1][j].value == '0' \
+                                    or self.table[i - 1][j].value == 'newX' \
+                                    or self.table[i - 1][j].value == 'X' \
+                                    and 0 <= i - 1:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j + 1].value == '0' or self.table[i - 1][j + 1].value == 'newX' or \
-                                    self.table[i - 1][j + 1].value == 'X':
+                            if self.table[i - 1][j + 1].value == '0' \
+                                    or self.table[i - 1][j + 1].value == 'newX' \
+                                    or self.table[i - 1][j + 1].value == 'X' \
+                                    and 0 <= i - 1 \
+                                    and j + 1 < self.m:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j - 1].value == '0' or self.table[i + 1][j - 1].value == 'newX' or \
-                                    self.table[i + 1][j - 1].value == 'X':
+                            if self.table[i + 1][j - 1].value == '0' \
+                                    or self.table[i + 1][j - 1].value == 'newX' \
+                                    or self.table[i + 1][j - 1].value == 'X'\
+                                    and 0 <= j - 1 \
+                                    and i + 1 < self.n:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j].value == '0' or self.table[i + 1][j].value == 'newX' or \
-                                    self.table[i + 1][j].value == 'X':
+                            if self.table[i + 1][j].value == '0' \
+                                    or self.table[i + 1][j].value == 'newX' \
+                                    or self.table[i + 1][j].value == 'X'\
+                                    and i + 1 < self.n:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j + 1].value == '0' or self.table[i + 1][j + 1].value == 'newX' or \
-                                    self.table[i + 1][j + 1].value == 'X':
+                            if self.table[i + 1][j + 1].value == '0' \
+                                    or self.table[i + 1][j + 1].value == 'newX' \
+                                    or self.table[i + 1][j + 1].value == 'X' \
+                                    and i + 1 < self.n \
+                                    and j + 1 < self.m:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i][j - 1].value == '0' or self.table[i][j - 1].value == 'newX' or \
-                                    self.table[i][j - 1].value == 'X':
+                            if self.table[i][j - 1].value == '0' \
+                                    or self.table[i][j - 1].value == 'newX' \
+                                    or self.table[i][j - 1].value == 'X'\
+                                    and 0 <= j - 1:
                                 countLockCell += 1
                         except:
                             print()
                         try:
-                            if self.table[i][j + 1].value == '0' or self.table[i][j + 1].value == 'newX' or \
-                                    self.table[i][j + 1].value == 'X':
+                            if self.table[i][j + 1].value == '0' \
+                                    or self.table[i][j + 1].value == 'newX' \
+                                    or self.table[i][j + 1].value == 'X'\
+                                    and j + 1 < self.m:
                                 countLockCell += 1
                         except:
                             print()
 
                     if countLockCell == int(number):  # and countLockCell
                         try:
-                            if self.table[i - 1][j - 1].value == '0':
+                            if self.table[i - 1][j - 1].value == '0' \
+                                    and 0 <= i - 1 \
+                                    and 0 <= j - 1:
                                 self.table[i - 1][j - 1].value = 'X'
                                 UserActions.clickRight(self.table[i - 1][j - 1].x1, self.table[i - 1][j - 1].y1)
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j].value == '0':
+                            if self.table[i - 1][j].value == '0' \
+                                    and 0 <= i - 1:
                                 self.table[i - 1][j].value = 'X'
                                 UserActions.clickRight(self.table[i - 1][j].x1, self.table[i - 1][j].y1)
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j + 1].value == '0':
+                            if self.table[i - 1][j + 1].value == '0' \
+                                    and 0 <= i - 1 \
+                                    and j + 1 < self.m:
                                 self.table[i - 1][j + 1].value = 'X'
                                 UserActions.clickRight(self.table[i - 1][j + 1].x1, self.table[i - 1][j + 1].y1)
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j - 1].value == '0':
+                            if self.table[i + 1][j - 1].value == '0'\
+                                    and 0 <= j - 1 \
+                                    and i + 1 < self.n:
                                 self.table[i + 1][j - 1].value = 'X'
                                 UserActions.clickRight(self.table[i + 1][j - 1].x1, self.table[i + 1][j - 1].y1)
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j].value == '0':
+                            if self.table[i + 1][j].value == '0'\
+                                    and i + 1 < self.n:
                                 self.table[i + 1][j].value = 'X'
                                 UserActions.clickRight(self.table[i + 1][j].x1, self.table[i + 1][j].y1)
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j + 1].value == '0':
+                            if self.table[i + 1][j + 1].value == '0' \
+                                    and i + 1 < self.n \
+                                    and j + 1 < self.m:
                                 self.table[i + 1][j + 1].value = 'X'
                                 UserActions.clickRight(self.table[i + 1][j + 1].x1, self.table[i + 1][j + 1].y1)
                         except:
                             print()
                         try:
-                            if self.table[i][j - 1].value == '0':
+                            if self.table[i][j - 1].value == '0'\
+                                    and 0 <= j - 1:
                                 self.table[i][j - 1].value = 'X'
                                 UserActions.clickRight(self.table[i][j - 1].x1, self.table[i][j - 1].y1)
                         except:
                             print()
                         try:
-                            if self.table[i][j + 1].value == '0':
+                            if self.table[i][j + 1].value == '0'\
+                                    and j + 1 < self.m:
                                 self.table[i][j + 1].value = 'X'
                                 UserActions.clickRight(self.table[i][j + 1].x1, self.table[i][j + 1].y1)
                         except:
@@ -184,87 +215,111 @@ class Sapper:
                     countClosed = 0
                     if self.table[i][j].value == number:  #
                         try:
-                            if self.table[i - 1][j - 1].value == 'X':
+                            if self.table[i - 1][j - 1].value == 'X' \
+                                    and 0 <= i - 1 \
+                                    and 0 <= j - 1:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j].value == 'X':
+                            if self.table[i - 1][j].value == 'X' \
+                                    and 0 <= i - 1:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i - 1][j + 1].value == 'X':
+                            if self.table[i - 1][j + 1].value == 'X' \
+                                    and 0 <= i - 1 \
+                                    and j + 1 < self.m:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j - 1].value == 'X':
+                            if self.table[i + 1][j - 1].value == 'X' \
+                                    and 0 <= j - 1 \
+                                    and i + 1 < self.n:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j].value == 'X':
+                            if self.table[i + 1][j].value == 'X' \
+                                    and i + 1 < self.n:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i + 1][j + 1].value == 'X':
+                            if self.table[i + 1][j + 1].value == 'X' \
+                                    and i + 1 < self.n \
+                                    and j + 1 < self.m:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i][j - 1].value == 'X':
+                            if self.table[i][j - 1].value == 'X' \
+                                    and 0 <= j - 1:
                                 countFlag += 1
                         except:
                             print()
                         try:
-                            if self.table[i][j + 1].value == 'X':
+                            if self.table[i][j + 1].value == 'X' \
+                                    and j + 1 < self.m:
                                 countFlag += 1
                         except:
                             print()
 
-
-                        try:
-                            if self.table[i - 1][j - 1].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i - 1][j].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i - 1][j + 1].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i + 1][j - 1].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i + 1][j].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i + 1][j + 1].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i][j - 1].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
-                        try:
-                            if self.table[i][j + 1].value == '0':
-                                countClosed += 1
-                        except:
-                            print()
+                        if countFlag == int(number):
+                            try:
+                                if self.table[i - 1][j - 1].value == '0' \
+                                        and 0 <= i - 1 \
+                                        and 0 <= j - 1:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i - 1][j].value == '0' \
+                                        and 0 <= i - 1:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i - 1][j + 1].value == '0' \
+                                        and 0 <= i - 1 \
+                                        and j + 1 < self.m:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i + 1][j - 1].value == '0' \
+                                        and 0 <= j - 1 \
+                                        and i + 1 < self.n:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i + 1][j].value == '0' \
+                                        and i + 1 < self.n:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i + 1][j + 1].value == '0' \
+                                        and i + 1 < self.n \
+                                        and j + 1 < self.m:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i][j - 1].value == '0' \
+                                        and 0 <= j - 1:
+                                    countClosed += 1
+                            except:
+                                print()
+                            try:
+                                if self.table[i][j + 1].value == '0' \
+                                        and j + 1 < self.m:
+                                    countClosed += 1
+                            except:
+                                print()
                     if countFlag == int(number) and countClosed > 0:  # and countLockCell
                         UserActions.clickMiddle(self.table[i][j].x1, self.table[i][j].y1)
 
