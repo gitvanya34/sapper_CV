@@ -135,6 +135,7 @@ class Sapper:
                         except:
                             print()
 
+
                     if countLockCell == int(number):  # and countLockCell
                         try:
                             if self.table[i - 1][j - 1].value == '0' \
