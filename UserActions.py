@@ -3,7 +3,6 @@ import pyautogui
 
 class UserActions(object):
 
-
     @staticmethod
     def screenshot():
         screen = pyautogui.screenshot('screenshot.jpg')
